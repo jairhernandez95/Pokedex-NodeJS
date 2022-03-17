@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Pokedex</title>
+</head>
+<body>
+    <header>
+        <div class="titleDiv">
+            <h1>Pokedex</h1>
+        </div>
+        <div class="searchAndFilterDiv">
+            <div class="filterDiv" id="filterDiv">
+                <h4>Filter by</h4>
+                <select id="categoriesSelect" name="categoriesSelect" oninput="filterByType(dataClean)"></select>
+            </div>
+            <h4>or</h4>
+            <div class="searchDiv" id="searchDiv">
+                <input type="text" placeholder="Type some pokemon..." id="pokemonToSearch" oninput="searchPokemon(dataClean)">
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="allDataDiv" id="allDataDiv"></div>
+        <div class="resultDiv" id="resultDiv"></div>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

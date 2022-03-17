@@ -1,0 +1,92 @@
+*{
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+}
+body{
+    display: block;
+}
+header{
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    outline: 1px solid black;
+    border-radius: 5px;
+}
+.titleDiv{
+    display: flex;
+    justify-content: center;
+}
+.searchAndFilterDiv{
+    display: grid;
+    grid-template-columns: 30% 5% 30%;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.filterDiv{
+    display: grid;
+    grid-template-columns: 40% 40%;
+    column-gap: 5%;
+    justify-content: center;
+}
+.filterDiv > h4{
+    text-align: end;
+}
+.filterDiv > select{
+    cursor: pointer;
+}
+.searchAndFilterDiv > h4{
+    display: flex;
+    justify-content: center;
+}
+.searchDiv{
+    display: grid;
+    grid-template-columns: 80%;
+    column-gap: 5%;
+    justify-content: center;
+}
+.searchDiv > button{
+    cursor: pointer;
+}
+main{
+    padding-top: 70px;
+}
+.allDataDiv{
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    justify-content: center;
+}
+.allDataDiv > div{
+    outline: 1px solid black;
+    margin: 10px;
+    padding: 5px;
+    text-overflow: clip;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.allDataDiv > div:hover{
+    background-color: yellow;
+    box-shadow: 10px 10px 5px rgb(133, 133, 133);
+}
+img{
+    width: 100%;
+    border-radius: 5px;
+}
+.resultDiv{
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    justify-content: center;
+}
+.resultDiv > div{
+    outline: 1px solid black;
+    margin: 10px;
+    padding: 5px;
+    text-overflow: clip;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.resultDiv > div:hover{
+    background-color: yellow;
+    box-shadow: 10px 10px 5px rgb(133, 133, 133);
+}
