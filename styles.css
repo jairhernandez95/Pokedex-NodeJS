@@ -18,7 +18,7 @@ header{
 }
 .searchAndFilterDiv{
     display: grid;
-    grid-template-columns: 30% 5% 30%;
+    grid-template-columns: 50%;
     justify-content: center;
     margin-bottom: 5px;
 }

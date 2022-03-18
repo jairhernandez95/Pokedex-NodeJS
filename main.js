@@ -1,20 +1,23 @@
 let dataFromJSON = [];
 let dataClean = [];
-let pokemonTypes = ["none","normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"];
 function getData()
 {
     let resultDiv = document.getElementById("resultDiv");
     let allDataDiv = document.getElementById("allDataDiv");
     allDataDiv.innerHTML = ``;
     resultDiv.innerHTML = ``;
-    fetch("pokeapi.json")
-    .then(Response => Response.json())
-    .then(dataFile => {
-        dataFromJSON.push(dataFile);
-        showPokemonTypes(pokemonTypes);
-        cleanData(dataFromJSON);
-        showAllPokemons(dataClean);
-    });
+    axios("https://pokeapi.co/api/v2/pokemon?limit=1126").then(
+        function (response)
+        {
+            let pokemons = response.data.results;
+            for(let i = 0; i < 1126; i++)
+            {
+                dataFromJSON.push(pokemons.pop());
+            }
+            dataFromJSON.reverse();
+            showAllPokemons(dataFromJSON.reverse());
+        }
+    );
 }
 function showPokemonTypes(array)
 {
@@ -26,27 +29,6 @@ function showPokemonTypes(array)
         option.value = type;
         option.text = type;
         categoriesSelect.appendChild(option);
-    }
-}
-function cleanData(array)
-{
-    for(let j = array[0].length-1; j >= 0; j--)
-    {
-        if(j == array[0].length-1 && j == 0 || j == 0)
-        {
-            dataClean.push(array[0][j]);
-        }
-        else if(j < array[0].length-1)
-        {
-            if(array[0][j].name == array[0][j-1].name)
-            {
-                continue
-            }
-            else
-            {
-                dataClean.push(array[0][j]);
-            }
-        }
     }
 }
 function showAllPokemons(array)
@@ -61,18 +43,18 @@ function showAllPokemons(array)
         {
             let individualDataDiv = document.createElement("div");
             individualDataDiv.setAttribute("class", "individualDataDiv");
-            individualDataDiv.setAttribute("onclick", "showModalPokemon(this, dataClean)")
+            individualDataDiv.setAttribute("onclick", "showModalPokemon(this)")
             individualDataDiv.setAttribute("id", `${array[j].name}`);
-            let pokemonImage = document.createElement("div");
-            pokemonImage.innerHTML = `<img src="${array[j].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
+            // let pokemonImage = document.createElement("div");
+            // pokemonImage.innerHTML = `<img src="${array[j].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
             let pokemonName = document.createElement("div");
             pokemonName.innerHTML = `<h5 id=${j}>${array[j].name}</h5>`;
-            let pokemonType = document.createElement("div");
-            pokemonType.innerHTML = `<h5>Type: ${array[j].type}</h5>`;
+            // let pokemonType = document.createElement("div");
+            // pokemonType.innerHTML = `<h5>Type: ${array[j].type}</h5>`;
             allDataDiv.insertAdjacentElement("afterbegin",individualDataDiv);
             // individualDataDiv.insertAdjacentElement("afterbegin", pokemonType);
             individualDataDiv.insertAdjacentElement("afterbegin", pokemonName);
-            individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
+            // individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
         }
         else if(j > 0)
         {
@@ -84,50 +66,21 @@ function showAllPokemons(array)
             {
                 let individualDataDiv = document.createElement("div");
                 individualDataDiv.setAttribute("class", "individualDataDiv");
-                individualDataDiv.setAttribute("onclick", "showModalPokemon(this, dataClean)")
+                individualDataDiv.setAttribute("onclick", "showModalPokemon(this)")
                 individualDataDiv.setAttribute("id", `${array[j].name}`);
-                let pokemonImage = document.createElement("div");
-                pokemonImage.innerHTML = `<img src="${array[j].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
+                // let pokemonImage = document.createElement("div");
+                // pokemonImage.innerHTML = `<img src="${array[j].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
                 let pokemonName = document.createElement("div");
                 pokemonName.innerHTML = `<h5 id=${j}>${array[j].name}</h5>`;
-                let pokemonType = document.createElement("div");
-                pokemonType.innerHTML = `<h5>Type: ${array[j].type}</h5>`;
+                // let pokemonType = document.createElement("div");
+                // pokemonType.innerHTML = `<h5>Type: ${array[j].type}</h5>`;
                 allDataDiv.insertAdjacentElement("afterbegin",individualDataDiv);
                 // individualDataDiv.insertAdjacentElement("afterbegin", pokemonType);
                 individualDataDiv.insertAdjacentElement("afterbegin", pokemonName);
-                individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
+                // individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
             }
         }
     }
-}
-function filterByType(array)
-{
-    let auxiliarArray = [];
-    let option = document.getElementById("categoriesSelect").value;
-    for(let l = 0; l < array.length; l++)
-    {
-        if(option == "none")
-        {
-            dataFromJSON = [];
-            dataClean = [];
-            pokemonTypes = [];
-            getData();
-            break;
-        }
-        else
-        {
-            if(array[l].type.includes(option))
-            {
-                auxiliarArray.push(array[l]);
-            }
-            else
-            {
-                continue;
-            }
-        }
-    }
-    auxiliarArray.reverse();
-    showFilteredData(auxiliarArray);
 }
 function showFilteredData(array)
 {
@@ -139,10 +92,10 @@ function showFilteredData(array)
     {
         let individualDataDiv = document.createElement("div");
         individualDataDiv.setAttribute("class", "individualDataDiv");
-        individualDataDiv.setAttribute("onclick", "showModalPokemon(this, dataClean)")
+        individualDataDiv.setAttribute("onclick", "showModalPokemon(this)")
         individualDataDiv.setAttribute("id", `${array[m].name}`);
-        let pokemonImage = document.createElement("div");
-        pokemonImage.innerHTML = `<img src="${array[m].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
+        // let pokemonImage = document.createElement("div");
+        // pokemonImage.innerHTML = `<img src="${array[m].ThumbnailImage}" onerror="this.onerror=null;this.src='errorLoad.png';">`
         let pokemonName = document.createElement("div");
         pokemonName.innerHTML = `<h5 id=${m}>${array[m].name}</h5>`;
         let pokemonType = document.createElement("div");
@@ -150,7 +103,7 @@ function showFilteredData(array)
         resultDiv.insertAdjacentElement("afterbegin",individualDataDiv);
         // individualDataDiv.insertAdjacentElement("afterbegin", pokemonType);
         individualDataDiv.insertAdjacentElement("afterbegin", pokemonName);
-        individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
+        // individualDataDiv.insertAdjacentElement("afterbegin", pokemonImage);
     }
 }
 function searchPokemon(array)
@@ -171,20 +124,32 @@ function searchPokemon(array)
     auxiliarArray.reverse();
     showFilteredData(auxiliarArray);
 }
-function showModalPokemon(element, array)
+function showModalPokemon(element)
 {
-    for(let i = array.length-1; i >= 0; i--)
-    {
-        if(element.textContent == (array[i].name))
+    let array = [];
+    console.log(element.textContent);
+    let config = {
+        method : "GET",
+        url : `https://pokeapi.co/api/v2/pokemon/${element.textContent}`,
+        headers : { }
+    }
+    axios(config).then(
+        function (response)
         {
+            let pokemon = response.data;
+            console.log(pokemon);
             Swal.fire({
-                title: `More about ${array[i].name}`,
-                text: `Type: ${array[i].type}. Abilities: ${array[i].abilities}. Weakness: ${array[i].weakness}`,
-                imageUrl: `${array[i].ThumbnailImage}`,
+                title: `More about ${pokemon.name}`,
+                text: `Type: ${pokemon.types[0].type.name}. Abilities: ${pokemon.abilities[0].ability.name}, ${pokemon.abilities[1].ability.name}. Moves: ${pokemon.moves[0].move.name}, ${pokemon.moves[1].move.name}`,
+                imageUrl: `${pokemon.sprites.front_default}`,
                 imageWidth: 300,
                 imageAlt: 'Custom image',
               })
         }
-    }
+    ).catch( function(error)
+        {
+            console.log(error); //estaría mejor agregar la parte de error que da la api de pokemon
+        }
+    );
 }
 getData();

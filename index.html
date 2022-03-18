@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="main.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Pokedex</title>
 </head>
@@ -15,13 +16,13 @@
             <h1>Pokedex</h1>
         </div>
         <div class="searchAndFilterDiv">
-            <div class="filterDiv" id="filterDiv">
+            <!-- <div class="filterDiv" id="filterDiv">
                 <h4>Filter by</h4>
                 <select id="categoriesSelect" name="categoriesSelect" oninput="filterByType(dataClean)"></select>
             </div>
-            <h4>or</h4>
+            <h4>or</h4> -->
             <div class="searchDiv" id="searchDiv">
-                <input type="text" placeholder="Type some pokemon..." id="pokemonToSearch" oninput="searchPokemon(dataClean)">
+                <input type="text" placeholder="Type some pokemon..." id="pokemonToSearch" oninput="searchPokemon(dataFromJSON)">
             </div>
         </div>
     </header>
