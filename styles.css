@@ -48,12 +48,13 @@ header{
     cursor: pointer;
 }
 main{
-    padding-top: 70px;
+    padding-top: 60px;
 }
 .allDataDiv{
     display: grid;
     grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     justify-content: center;
+    padding-top: 15px;
 }
 .allDataDiv > div{
     outline: 1px solid black;
