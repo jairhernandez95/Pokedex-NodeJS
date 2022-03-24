@@ -109,6 +109,7 @@ function showFilteredData(array)
 function searchPokemon(array)
 {
     let pokemonToSearch = document.getElementById("pokemonToSearch").value;
+    pokemonToSearch = pokemonToSearch.toLowerCase();
     let auxiliarArray = [];
     for(let l = 0; l < array.length; l++)
     {
@@ -126,30 +127,52 @@ function searchPokemon(array)
 }
 function showModalPokemon(element)
 {
-    let array = [];
-    console.log(element.textContent);
     let config = {
         method : "GET",
         url : `https://pokeapi.co/api/v2/pokemon/${element.textContent}`,
         headers : { }
     }
     axios(config).then(
-        function (response)
+        function(response)
         {
             let pokemon = response.data;
-            console.log(pokemon);
+            let pokemonAbilities = null;
+            let pokemonMoves = null;
+            let pokemonTypes = null;
+            for (let i = 0; i < pokemon.abilities.length; i++)
+            {
+                pokemonAbilities += pokemon.abilities[i].ability.name;
+                pokemonAbilities += ", ";
+            }
+            for(let j = 0; j < pokemon.moves.length; j++)
+            {
+                pokemonMoves += pokemon.moves[j].move.name;
+                pokemonMoves += ", ";
+            }
+            for(let k = 0; k < pokemon.types.length; k++)
+            {
+                pokemonTypes += pokemon.types[k].type.name;
+                pokemonTypes += ", ";
+            }
+            pokemonAbilities = pokemonAbilities.slice(4);
+            pokemonAbilities = pokemonAbilities.slice(0, pokemonAbilities.length-2);
+            pokemonMoves = pokemonMoves.slice(4);
+            pokemonMoves = pokemonMoves.slice(0, pokemonMoves.length-2);
+            pokemonTypes = pokemonTypes.slice(4);
+            pokemonTypes = pokemonTypes.slice(0, pokemonTypes.length-2);
             Swal.fire({
                 title: `More about ${pokemon.name}`,
-                text: `Type: ${pokemon.types[0].type.name}. Abilities: ${pokemon.abilities[0].ability.name}, ${pokemon.abilities[1].ability.name}. Moves: ${pokemon.moves[0].move.name}, ${pokemon.moves[1].move.name}`,
+                text: `Types: ${pokemonTypes}. Abilities: ${pokemonAbilities}. Moves: ${pokemonMoves}`,
                 imageUrl: `${pokemon.sprites.front_default}`,
                 imageWidth: 300,
                 imageAlt: 'Custom image',
-              })
+            })
         }
-    ).catch( function(error)
-        {
-            console.log(error); //estaría mejor agregar la parte de error que da la api de pokemon
-        }
-    );
+    ).catch(    
+        Swal.fire({
+            title: `Sorry :(`,
+            text: `We dont have enough information about this pokemon, we need to Ash to keep us updated 😡, if you see him please tell him.`,
+        })
+    )
 }
 getData();
