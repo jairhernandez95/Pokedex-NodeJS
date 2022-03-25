@@ -155,17 +155,10 @@ function showModalPokemon(element)
                 imageWidth: 300,
                 imageAlt: 'Custom image',
             })
-        }).catch(
-            Swal.fire({
-                title: `Loading...`,
-                showCancelButton: false,
-                showConfirmButton: false
-                // Swal.fire({
-                //     icon: "error",
-                //     title: `Error`,
-                //     text: `We dont have enough information about this pokemon, we need to Ash to keep us updated, if you see him please tell him 😡`,
-                // })
-        }))
+        }).catch(function(error,response){
+            console.log(`${response.data}`)
+            console.log(error);
+        })
 }
 
 getData();
