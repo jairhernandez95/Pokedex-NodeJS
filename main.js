@@ -19,18 +19,6 @@ function getData()
         }
     );
 }
-function showPokemonTypes(array)
-{
-    let categoriesSelect = document.getElementById("categoriesSelect");
-    for(let i = 0; i < array.length; i++)
-    {
-        let option = document.createElement("option");
-        let type = array[i];
-        option.value = type;
-        option.text = type;
-        categoriesSelect.appendChild(option);
-    }
-}
 function showAllPokemons(array)
 {
     let resultDiv = document.getElementById("resultDiv");
@@ -172,12 +160,12 @@ function showModalPokemon(element)
                 title: `Loading...`,
                 showCancelButton: false,
                 showConfirmButton: false
-                // text: `We dont have enough information about this pokemon, we need to Ash to keep us updated, if you see him please tell him 😡`,
+                // Swal.fire({
+                //     icon: "error",
+                //     title: `Error`,
+                //     text: `We dont have enough information about this pokemon, we need to Ash to keep us updated, if you see him please tell him 😡`,
+                // })
         }))
 }
-// Swal.fire({
-//     icon: "error",
-//     title: `Error`,
-//     text: `We dont have enough information about this pokemon, we need to Ash to keep us updated, if you see him please tell him 😡`,
-// })
+
 getData();
